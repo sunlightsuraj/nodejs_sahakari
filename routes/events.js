@@ -1,12 +1,18 @@
 var express = require('express');
 var router = express.Router();
-var Event = require("../models/Event");
-var event = new Event();
+var EventRepository = require("../repositories/EventRepository");
+var eventRepository = new EventRepository();
 
 router.get('/', async (req, res) => {
-    var eventList = await event.getEvents();
+    var eventList = await eventRepository.getEvents();
     console.log('Event List: ', eventList);
     res.json(eventList);
+});
+
+router.get('/:code', async (req, res) => {
+    var code = req.params.code;
+    var event = await eventRepository.getEventByCode(code);
+    res.send(event);
 });
 
 router.post('/', async (req, res) => {
@@ -23,8 +29,20 @@ router.post('/', async (req, res) => {
         created_at: new Date(),
         updated_at: new Date()
     };
-    var evt = await event.saveEvent(event_1);
+    var evt = await eventRepository.saveEvent(event_1);
     res.send(event_1);
+});
+
+router.put('/:code', async (req, res) => {
+    var code = req.params.code;
+    
+    res.send(code);
+});
+
+router.delete('/:code', async (req, res) => {
+    var code = req.params.code;
+    var result = eventRepository.deleteEvent(code);
+    res.send(result);
 });
 
 module.exports = router;
