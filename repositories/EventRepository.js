@@ -23,7 +23,7 @@ module.exports = class EventRepository {
                     reject(null);
                 }
 
-                resolve(results);
+                resolve(results[0]);
             });
         });
     }
@@ -39,6 +39,18 @@ module.exports = class EventRepository {
                     }
                     resolve(results);
                 });
+        });
+    }
+
+    updateEventByCode(event, code) {
+        return new Promise((resolve, reject) => {
+            connection.query("update events set ? where code = ?", [event, code], (err, results) => {
+                if (err) {
+                    console.log(err);
+                    reject(null);
+                }
+                resolve(results);
+            });
         });
     }
 

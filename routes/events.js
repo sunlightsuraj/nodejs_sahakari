@@ -33,10 +33,29 @@ router.post('/', async (req, res) => {
     res.send(event_1);
 });
 
-router.put('/:code', async (req, res) => {
+router.put('/', async (req, res) => {
+    var data = req.body;
+    var code = data.code;
+
+    var event = await eventRepository.getEventByCode(code);
+    console.log(event);
+    if (event) {
+        // data exists, update data
+        await eventRepository.updateEventByCode(data, code);
+    } else {
+        // data doesn't exists, create new data
+        await eventRepository.saveEvent(data);
+    }
+
+    res.status(200).json();
+});
+
+router.patch('/:code', async (req, res) => {
     var code = req.params.code;
-    
-    res.send(code);
+    var data = req.body;
+    var event = await eventRepository.updateEventByCode(data, code);
+
+    res.send(event);
 });
 
 router.delete('/:code', async (req, res) => {
