@@ -12,6 +12,8 @@ var document_typesRouter = require('./routes/document_types');
 var savingsRouter = require('./routes/savings');
 var savingwithdrawsRouter = require('./routes/savingwithdraws');
 var membermoneylogsRouter = require('./routes/membermoneylogs');
+var userdocumentsRouter = require('./routes/user_documents');
+var userdocumentfilesRouter = require('./routes/user_document_files');
 
 var app = express();
 
@@ -31,5 +33,7 @@ app.use('/document_types', document_typesRouter);
 app.use('/savings', savingsRouter);
 app.use('/savingwithdraws', savingwithdrawsRouter);
 app.use('/membermoneylogs', membermoneylogsRouter);
+app.use('/user-document-files',userdocumentfilesRouter);
+app.use('/user-documents',userdocumentsRouter);
 
 module.exports = app;
