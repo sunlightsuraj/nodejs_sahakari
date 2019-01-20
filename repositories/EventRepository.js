@@ -54,6 +54,7 @@ module.exports = class EventRepository {
         });
     }
 
+    
     deleteEvent(code) {
         return new Promise((resolve, reject) => {
             connection.query("update events set deleted_at = current_timestamp where code = ?", code, (err, results) => {
