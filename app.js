@@ -14,6 +14,9 @@ var savingwithdrawsRouter = require('./routes/savingwithdraws');
 var membermoneylogsRouter = require('./routes/membermoneylogs');
 var userdocumentsRouter = require('./routes/user_documents');
 var userdocumentfilesRouter = require('./routes/user_document_files');
+var usersRouter = require('./routes/users');
+var userLoginRouter = require('./routes/userlogins');
+
 
 var app = express();
 
@@ -35,5 +38,8 @@ app.use('/savingwithdraws', savingwithdrawsRouter);
 app.use('/membermoneylogs', membermoneylogsRouter);
 app.use('/user-document-files',userdocumentfilesRouter);
 app.use('/user-documents',userdocumentsRouter);
+app.use('/user', usersRouter);
+app.use('/userlogin', userLoginRouter);
+
 
 module.exports = app;
