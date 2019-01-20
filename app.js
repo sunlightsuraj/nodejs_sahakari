@@ -7,6 +7,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var userLoginsRouter = require('./routes/userLogins');
 var eventsRouter = require('./routes/events');
+var loansRouter = require('./routes/loans');
+var loan_installment_calculationsRouter = require('./routes/loan_installment_calculations');
 
 var app = express();
 
@@ -20,5 +22,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/user-logins', userLoginsRouter);
 app.use('/events', eventsRouter);
+app.use('/loans', loansRouter);
+app.use('/loan_installment_calculations', loan_installment_calculationsRouter);
 
 module.exports = app;
