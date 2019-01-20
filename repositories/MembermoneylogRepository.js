@@ -1,9 +1,9 @@
 var connection = require('../database/connection');
 
-module.exports = class EventRepository {
-    getEvents() {
+module.exports = class MembermoneylogRepository {
+    getMembermoneylogs() {
         return new Promise((resolve, reject) => {
-            connection.query("select * from events where deleted_at is null", (err, results) => {
+            connection.query("select * from member_money_logs where deleted_at is null", (err, results) => {
                 console.log('results: ', results);
                 if (err) {
                     console.log(err);
@@ -15,9 +15,9 @@ module.exports = class EventRepository {
         });
     }
 
-    getEventByCode(code) {
+    getMembermoneylogByCode(code) {
         return new Promise((resolve, reject) => {
-            connection.query("select * from events where code = ? and deleted_at is null", code, (err, results) => {
+            connection.query("select * from member_money_logs where code = ? and deleted_at is null", code, (err, results) => {
                 if (err) {
                     console.log(err);
                     reject(null);
@@ -28,10 +28,10 @@ module.exports = class EventRepository {
         });
     }
 
-    saveEvent(event) {
+    saveMembermoneylog(membermoneylogs) {
         return new Promise((resolve, reject) => {
-            connection.query("insert into events set ?",
-                event,
+            connection.query("insert into member_money_logs set ?",
+                membermoneylogs,
                 (err, results) => {
                     if (err) {
                         console.log(err);
@@ -42,9 +42,9 @@ module.exports = class EventRepository {
         });
     }
 
-    updateEventByCode(event, code) {
+    updateMembermoneylogByCode(membermoneylogs, code) {
         return new Promise((resolve, reject) => {
-            connection.query("update events set ? where code = ?", [event, code], (err, results) => {
+            connection.query("update member_logs? where code = ?", [membermoneylogs, code], (err, results) => {
                 if (err) {
                     console.log(err);
                     reject(null);
@@ -54,10 +54,9 @@ module.exports = class EventRepository {
         });
     }
 
-    
-    deleteEvent(code) {
+    deleteMembermoneylog(code) {
         return new Promise((resolve, reject) => {
-            connection.query("update events set deleted_at = current_timestamp where code = ?", code, (err, results) => {
+            connection.query("update membermoneylogs set deleted_at = current_timestamp where code = ?", code, (err, results) => {
                 if (err) {
                     console.log(err);
                     reject(null);

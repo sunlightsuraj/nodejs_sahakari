@@ -9,6 +9,9 @@ var userLoginsRouter = require('./routes/userLogins');
 var eventsRouter = require('./routes/events');
 var user_typesRouter = require('./routes/user_types');
 var document_typesRouter = require('./routes/document_types');
+var savingsRouter = require('./routes/savings');
+var savingwithdrawsRouter = require('./routes/savingwithdraws');
+var membermoneylogsRouter = require('./routes/membermoneylogs');
 
 var app = express();
 
@@ -22,7 +25,11 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/user-logins', userLoginsRouter);
 app.use('/events', eventsRouter);
+
 app.use('/user_types', user_typesRouter);
 app.use('/document_types', document_typesRouter);
+app.use('/savings', savingsRouter);
+app.use('/savingwithdraws', savingwithdrawsRouter);
+app.use('/membermoneylogs', membermoneylogsRouter);
 
 module.exports = app;
