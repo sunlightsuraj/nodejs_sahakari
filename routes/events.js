@@ -2,16 +2,16 @@ var express = require('express');
 var router = express.Router();
 var eventController = require('../controllers/EventController');
 
-router.get('/', eventContrller.index);
+router.get('/', eventController.index);
 
-router.get('/:code', eventContrller.show);
+router.get('/:code', eventController.show);
 
-router.post('/', eventContrller.save);
+router.post('/', eventController.save);
 
-router.put('/', eventContrller.updateOrInsert);
+router.put('/', eventController.updateOrInsert);
 
-router.patch('/:code', eventContrller.update);
+router.patch('/:code', eventController.update);
 
-router.delete('/:code', eventContrller.delete);
+router.delete('/:code', eventController.delete);
 
 module.exports = router;
