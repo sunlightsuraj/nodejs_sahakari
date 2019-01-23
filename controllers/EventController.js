@@ -1,20 +1,20 @@
 var EventRepository = require("../repositories/EventRepository");
 var eventRepository = new EventRepository();
 
-var EventController = class EventController {
-    async index(req, res) {
+var eventController = {
+    index: async(req, res) => {
         var eventList = await eventRepository.getEvents();
         console.log('Event List: ', eventList);
         res.json(eventList);
-    }
+    },
 
-    async show(req, res) {
+    show: async (req, res) => {
         var code = req.params.code;
         var event = await eventRepository.getEventByCode(code);
         res.send(event);
-    }
+    },
 
-    async save(req, res) {
+    save: async (req, res) => {
         var data = req.body;
         var event_1 = {
             code: data.code,
@@ -30,9 +30,9 @@ var EventController = class EventController {
         };
         var evt = await eventRepository.saveEvent(event_1);
         res.send(event_1);
-    }
+    },
 
-    async updateOrInsert(req, res) {
+    updateOrInsert: async (req, res) => {
         var data = req.body;
         var code = data.code;
 
@@ -47,21 +47,21 @@ var EventController = class EventController {
         }
 
         res.status(200).json();
-    }
+    },
 
-    async update(req, res) {
+    update: async (req, res) => {
         var code = req.params.code;
         var data = req.body;
         var event = await eventRepository.updateEventByCode(data, code);
 
         res.send(event);
-    }
+    },
 
-    async delete(req, res) {
+    delete: async (req, res) => {
         var code = req.params.code;
         var result = eventRepository.deleteEvent(code);
         res.send(result);
     }
 };
 
-module.exports = EventController;
+module.exports = eventController;
