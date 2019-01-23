@@ -18,9 +18,10 @@ var membermoneylogsRouter = require('./routes/membermoneylogs');
 var userdocumentsRouter = require('./routes/user_documents');
 var userdocumentfilesRouter = require('./routes/user_document_files');
 var usersRouter = require('./routes/users');
-var userLoginRouter = require('./routes/userlogins');
+ var userLoginRouter = require('./routes/userLogins');
+ var loan_paymentsRouter = require('./routes/loan_payments');
 
->>>>>>> 11e86d2f730c5ef5d28632c08244385a9e3009fc
+
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use('/user-document-files',userdocumentfilesRouter);
 app.use('/user-documents',userdocumentsRouter);
 app.use('/user', usersRouter);
 app.use('/userlogin', userLoginRouter);
+app.use('/loan_payments', loan_paymentsRouter);
 
 
 module.exports = app;

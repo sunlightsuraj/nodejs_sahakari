@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var UserRepository = require('../Repositories/UserRepository');
+var UserRepository = require('../repositories/userRepository');
 var userRepository = new UserRepository();
 
 /* GET users listing. */

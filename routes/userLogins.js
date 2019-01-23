@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var userLoginRepository = require('../Repositories/userLoginRepository');
+var userLoginRepository = require('../repositories/UserLoginRepository');
 var userloginRepository = new userLoginRepository();
 /* GET users listing. */
 router.get('/', async (req, res) => {

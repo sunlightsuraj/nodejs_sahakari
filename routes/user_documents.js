@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var UserDocumentsRepository = require('../Repositories/UserDocumentsRepository.js');
+var UserDocumentsRepository = require('../repositories/UserDocumentsRepository.js');
 var userdocumentsRepository = new UserDocumentsRepository();
 
 /* GET users listing. */

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var UserDocumentFilesRepository = require("../Repositories/UserDocumentFilesRepository.js");
+var UserDocumentFilesRepository = require("../repositories/UserDocumentFilesRepository.js");
 var userdocumentfilesRepository = new UserDocumentFilesRepository();
 /* GET users listing. */
 /*router.get('/', function(req, res, next) {
