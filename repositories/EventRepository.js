@@ -1,4 +1,5 @@
 var connection = require('../database/connection');
+var Event = require('../models/Event');
 
 module.exports = class EventRepository {
     getEvents() {
@@ -10,7 +11,15 @@ module.exports = class EventRepository {
                     reject(null);
                 }
 
-                resolve(results);
+                //resolve(results);
+
+                let events = [];
+                results.forEach(result => {
+                    let event = new Event();
+                    event = Object.assign(event, result);
+                    events.push(event);
+                });
+                resolve(events);
             });
         });
     }
@@ -23,7 +32,10 @@ module.exports = class EventRepository {
                     reject(null);
                 }
 
-                resolve(results[0]);
+                let result = results[0];
+                let event = new Event();
+                event = Object.assign(event, result);
+                resolve(event);
             });
         });
     }
