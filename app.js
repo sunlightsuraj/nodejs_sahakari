@@ -44,7 +44,7 @@ app.use('/membermoneylogs', membermoneylogsRouter);
 app.use('/user-document-files',userdocumentfilesRouter);
 app.use('/user-documents',userdocumentsRouter);
 app.use('/user', usersRouter);
-app.use('/userlogin', userLoginRouter);
+app.use('/userlogin', userLoginsRouter);
 app.use('/loan_payments', loan_paymentsRouter);
 
 

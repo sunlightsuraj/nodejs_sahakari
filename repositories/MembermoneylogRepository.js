@@ -1,5 +1,5 @@
 var connection = require('../database/connection');
-
+var Membermoneylog = require('../models/Membermoneylog');
 module.exports = class MembermoneylogRepository {
     getMembermoneylogs() {
         return new Promise((resolve, reject) => {
@@ -10,7 +10,14 @@ module.exports = class MembermoneylogRepository {
                     reject(null);
                 }
 
-                resolve(results);
+                //resolve(results);
+                let membermoneylogs = [];
+                results.forEach(result => {
+                    let membermoneylog = new Membermoneylog();
+                    membermoneylog = Object.assign(membermoneylog, result);
+                    membermoneylogs.push(membermoneylog);
+                });
+                resolve(membermoneylogs);
             });
         });
     }
@@ -23,7 +30,10 @@ module.exports = class MembermoneylogRepository {
                     reject(null);
                 }
 
-                resolve(results[0]);
+                let result = results[0];
+                let membermoneylog = new Membermoneylog();
+                membermoneylog = Object.assign(membermoneylog, result);
+                resolve(membermoneylog);
             });
         });
     }
