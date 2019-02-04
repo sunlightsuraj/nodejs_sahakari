@@ -1,4 +1,5 @@
 var connection = require('../database/connection');
+var Saving = require('../models/Saving')
 
 module.exports = class SavingRepository {
     getSavings() {
@@ -10,7 +11,14 @@ module.exports = class SavingRepository {
                     reject(null);
                 }
 
-                resolve(results);
+                //resolve(results);
+                let savings = [];
+                results.forEach(result => {
+                    let saving = new Saving();
+                    saving = Object.assign(saving, result);
+                    savings.push(saving);
+                });
+                resolve(savings);
             });
         });
     }
@@ -23,7 +31,10 @@ module.exports = class SavingRepository {
                     reject(null);
                 }
 
-                resolve(results[0]);
+                let result = results[0];
+                let saving = new Saving();
+                saving = Object.assign(saving, result);
+                resolve(saving);
             });
         });
     }

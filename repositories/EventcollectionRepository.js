@@ -1,9 +1,11 @@
+
 var connection = require('../database/connection');
-var Membermoneylog = require('../models/Membermoneylog');
-module.exports = class MembermoneylogRepository {
-    getMembermoneylogs() {
+var Eventcollection = require('../models/Eventcollection');
+
+module.exports = class EventcollectionRepository {
+    getEventcollections() {
         return new Promise((resolve, reject) => {
-            connection.query("select * from member_money_logs where deleted_at is null", (err, results) => {
+            connection.query("select * from event_collections where deleted_at is null", (err, results) => {
                 console.log('results: ', results);
                 if (err) {
                     console.log(err);
@@ -11,37 +13,38 @@ module.exports = class MembermoneylogRepository {
                 }
 
                 //resolve(results);
-                let membermoneylogs = [];
+
+                let eventcollections = [];
                 results.forEach(result => {
-                    let membermoneylog = new Membermoneylog();
-                    membermoneylog = Object.assign(membermoneylog, result);
-                    membermoneylogs.push(membermoneylog);
+                    let eventcollection = new Eventcollection();
+                    eventcollection = Object.assign(eventcollection, result);
+                    eventcollections.push(eventcollection);
                 });
-                resolve(membermoneylogs);
+                resolve(eventcollections);
             });
         });
     }
 
-    getMembermoneylogByCode(code) {
+    getEventcollectionByCode(code) {
         return new Promise((resolve, reject) => {
-            connection.query("select * from member_money_logs where code = ? and deleted_at is null", code, (err, results) => {
+            connection.query("select * from event_collections where code = ? and deleted_at is null", code, (err, results) => {
                 if (err) {
                     console.log(err);
                     reject(null);
                 }
 
                 let result = results[0];
-                let membermoneylog = new Membermoneylog();
-                membermoneylog = Object.assign(membermoneylog, result);
-                resolve(membermoneylog);
+                let eventcollection = new Eventcollection();
+                eventcollection = Object.assign(eventcollection, result);
+                resolve(eventcollection);
             });
         });
     }
 
-    saveMembermoneylog(membermoneylogs) {
+    saveEventcollection(eventcollection) {
         return new Promise((resolve, reject) => {
-            connection.query("insert into member_money_logs set ?",
-                membermoneylogs,
+            connection.query("insert into event_collections set ?",
+                eventcollection,
                 (err, results) => {
                     if (err) {
                         console.log(err);
@@ -52,9 +55,9 @@ module.exports = class MembermoneylogRepository {
         });
     }
 
-    updateMembermoneylogByCode(membermoneylogs, code) {
+    updateEventcollectionByCode(eventcollection, code) {
         return new Promise((resolve, reject) => {
-            connection.query("update member_logs? where code = ?", [membermoneylogs, code], (err, results) => {
+            connection.query("update event_collections set ? where code = ?", [eventcollection, code], (err, results) => {
                 if (err) {
                     console.log(err);
                     reject(null);
@@ -64,9 +67,10 @@ module.exports = class MembermoneylogRepository {
         });
     }
 
-    deleteMembermoneylog(code) {
+    
+    deleteEventcollection(code) {
         return new Promise((resolve, reject) => {
-            connection.query("update membermoneylogs set deleted_at = current_timestamp where code = ?", code, (err, results) => {
+            connection.query("update event_collections set deleted_at = current_timestamp where code = ?", code, (err, results) => {
                 if (err) {
                     console.log(err);
                     reject(null);
