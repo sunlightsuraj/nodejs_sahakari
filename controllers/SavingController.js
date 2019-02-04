@@ -1,37 +1,45 @@
 var SavingRepository = require("../repositories/SavingRepository");
 var savingRepository = new SavingRepository();
+var Saving = require('../models/Saving');
 
 var savingController = {
-    index: async(req, res) => {
-        var savingList = await savingRepository.getSavings();
-        console.log('saving List: ', savingList);
-        res.json(savingList);
+    index: async (req, res) => {
+        var savings = await savingRepository.getSavings();
+
+        savings.forEach(saving => {
+            console.log(saving.printIDandCode());
+        });
+
+        res.json(savings);
     },
 
     show: async (req, res) => {
         var code = req.params.code;
         var saving = await savingRepository.getSavingByCode(code);
+        console.log(saving.printIDandCode());
         res.send(saving);
     },
 
     save: async (req, res) => {
         var data = req.body;
-        var saving_1 = {
-            code: data.code,
-            saving_amount: data.saving_amount,
-            collected_date: data.collected_date,
-            collected_for_date: data.collected_for_date,
-            user_code: data.user_code,
-            collected_by: data.collected_by,
-           ref_code: data.ref_code,
-           verified_by:data.verified_by,
-           status:data.status,
-            created_by: data.created_by,
-            created_at: new Date(),
-            updated_at: new Date()
-        };
-        var svg = await savingRepository.saveSaving(saving_1);
-        res.send(saving_1);
+
+        var saving = new Saving();
+        console.log('Before', saving);
+        saving.saving_amount = data.saving_amount;
+        saving.collected_date = data.collected_date;
+        saving.collected_for_date = data.collected_for_date;
+        saving.user_code = data.user_code;
+        saving.collected_by = data.collected_by;
+        saving.ref_code = data.ref_code;
+        saving.verified_by = data.verified_by;
+        saving.status = data.status;
+        saving.created_by = data.created_by;
+
+        console.log('After', saving);
+
+        var svg = await savingRepository.saveSaving(saving);
+        res.status(201);
+        res.send();
     },
 
     updateOrInsert: async (req, res) => {
@@ -44,6 +52,8 @@ var savingController = {
             // data exists, update data
             await savingRepository.updateSavingByCode(data, code);
         } else {
+            let saving = new Saving();
+            saving = Object.assign(saving, data);
             // data doesn't exists, create new data
             await savingRepository.saveSaving(data);
         }

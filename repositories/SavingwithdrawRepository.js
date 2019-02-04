@@ -1,5 +1,5 @@
 var connection = require('../database/connection');
-
+var Savingwithdraw = require('../models/Savingwithdraw')
 module.exports = class SavingwithdrawRepository {
     getSavingwithdraws() {
         return new Promise((resolve, reject) => {
@@ -10,7 +10,14 @@ module.exports = class SavingwithdrawRepository {
                     reject(null);
                 }
 
-                resolve(results);
+                //resolve(results);
+                let savingwithdraws = [];
+                results.forEach(result => {
+                    let savingwithdraw = new Savingwithdraw();
+                    savingwithdraw = Object.assign(savingwithdraw, result);
+                    savingwithdraws.push(savingwithdraw);
+                });
+                resolve(savingwithdraws);
             });
         });
     }
@@ -23,7 +30,10 @@ module.exports = class SavingwithdrawRepository {
                     reject(null);
                 }
 
-                resolve(results[0]);
+                let result = results[0];
+                let savingwithdraw = new Savingwithdraw();
+                savingwithdraw = Object.assign(savingwithdraw, result);
+                resolve(savingwithdraw);
             });
         });
     }

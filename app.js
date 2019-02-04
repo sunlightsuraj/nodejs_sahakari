@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var userLoginsRouter = require('./routes/userLogins');
 var eventsRouter = require('./routes/events');
+var eventcollectionsRouter = require('./routes/eventcollections');
 
 var loansRouter = require('./routes/loans');
 var loan_installment_calculationsRouter = require('./routes/loan_installment_calculations');
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/events', eventsRouter);
+app.use('/eventcollections', eventcollectionsRouter);
 app.use('/loans', loansRouter);
 app.use('/loan_installment_calculations', loan_installment_calculationsRouter);
 
@@ -43,8 +45,13 @@ app.use('/savingwithdraws', savingwithdrawsRouter);
 app.use('/membermoneylogs', membermoneylogsRouter);
 app.use('/user-document-files',userdocumentfilesRouter);
 app.use('/user-documents',userdocumentsRouter);
+
 app.use('/users', usersRouter);
-app.use('/userlogin', userLoginRouter);
+
+
+
+app.use('/userlogin', userLoginsRouter);
+
 app.use('/loan_payments', loan_paymentsRouter);
 
 

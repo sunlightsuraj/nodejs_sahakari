@@ -1,33 +1,44 @@
 var Document_TypesRepository = require("../repositories/Document_TypesRepository");
 var document_typesRepository = new Document_TypesRepository();
+var Document_types = require('../models/Document_types');
 
 var document_typesController = {
     index: async(req, res) => {
-        var document_typesList = await document_typesRepository.getDocument_Types();
-        console.log('Document_Types List: ', document_typesList);
-        res.json(document_typesList);
+        var document_types = await document_typesRepository.getDocument_Types();
+        
+        document_types.forEach(document_type => {
+            console.log(document_type.printIDandCode());
+        });
+
+        res.json(document_types);
     },
 
     show: async (req, res) => {
         var code = req.params.code;
     var document_types = await document_typesRepository.getDocument_TypesByCode(code);
+    console.log(document_types.printIDandCode());
     res.send(document_types);
     },
 
     save: async (req, res) => {
         var data = req.body;
-        var document_types_1 = {
-            code: data.code,
-            document_type: data.document_type,
-            description: data.description,
-            status: data.status,
-            created_by: data.created_by,
-            created_at: new Date(),
-            updated_at: new Date(),
-            deleted_at: null
-        };
-        var evt= await document_typesRepository.saveDocument_Types(document_types_1);
-        res.send(document_types_1);
+
+        var document_types = new Document_types();
+        console.log('Before', document_types);
+        document_types.document_type = data.document_type;
+        document_types.description =  data.description;
+        document_types.status =  data.status;
+        document_types.created_by = data.created_by;
+        document_types.created_at =  new Date();
+        document_types.updated_at =  new Date();
+        document_types.deleted_at = null
+
+        console.log('After', document_types);
+
+        var evt = await document_typesRepository.saveDocument_Types(document_types);
+        res.status(201);
+        res.send();
+
     },
 
     updateOrInsert: async (req, res) => {
@@ -52,7 +63,7 @@ var document_typesController = {
         var data = req.body;
         var document_types = await document_typesRepository.updateDocument_TypesByCode(data, code);
 
-        res.send(user_types);
+        res.send(document_types);
     },
 
     delete: async (req, res) => {

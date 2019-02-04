@@ -1,4 +1,5 @@
 var connection = require('../database/connection');
+var Document_types= require('../models/Document_types');
 
 module.exports = class Document_TypesRepository {
     getDocument_Types() {
@@ -10,7 +11,14 @@ module.exports = class Document_TypesRepository {
                     reject(null);
                 }
 
-                resolve(results);
+                //resolve(results);
+                let document_types = [];
+                results.forEach(result => {
+                    let document_type = new Document_types();
+                    document_type = Object.assign(document_type, result);
+                    document_types.push(document_type);
+                });
+                resolve(document_types);
             });
         });
     }
@@ -23,7 +31,10 @@ module.exports = class Document_TypesRepository {
                     reject(null);
                 }
 
-                resolve(results[0]);
+                let result = results[0];
+                let document_types = new Document_Types();
+                document_types = Object.assign(document_types, result);
+                resolve(document_types);
             });
         });
     }
