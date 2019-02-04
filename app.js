@@ -18,8 +18,8 @@ var savingwithdrawsRouter = require('./routes/savingwithdraws');
 var membermoneylogsRouter = require('./routes/membermoneylogs');
 var userdocumentsRouter = require('./routes/user_documents');
 var userdocumentfilesRouter = require('./routes/user_document_files');
-var usersRouter = require('./routes/users');
-var userLoginRouter = require('./routes/userLogins');
+
+
 var loan_paymentsRouter = require('./routes/loan_payments');
 
 
