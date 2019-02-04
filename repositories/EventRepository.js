@@ -1,3 +1,4 @@
+    
 var connection = require('../database/connection');
 var Event = require('../models/Event');
 

@@ -18,8 +18,8 @@ var membermoneylogsRouter = require('./routes/membermoneylogs');
 var userdocumentsRouter = require('./routes/user_documents');
 var userdocumentfilesRouter = require('./routes/user_document_files');
 var usersRouter = require('./routes/users');
- var userLoginRouter = require('./routes/userLogins');
- var loan_paymentsRouter = require('./routes/loan_payments');
+var userLoginRouter = require('./routes/userLogins');
+var loan_paymentsRouter = require('./routes/loan_payments');
 
 
 
@@ -43,7 +43,7 @@ app.use('/savingwithdraws', savingwithdrawsRouter);
 app.use('/membermoneylogs', membermoneylogsRouter);
 app.use('/user-document-files',userdocumentfilesRouter);
 app.use('/user-documents',userdocumentsRouter);
-app.use('/user', usersRouter);
+app.use('/users', usersRouter);
 app.use('/userlogin', userLoginRouter);
 app.use('/loan_payments', loan_paymentsRouter);
 

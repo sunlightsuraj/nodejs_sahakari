@@ -10,7 +10,15 @@ module.exports = class LoanRepository {
                     reject(null);
                 }
 
-                resolve(results);
+                // resolve(results);
+
+                let loans = [];
+                results.forEach(result => {
+                    let loan = new Loan();
+                    loan = Object.assign(loan, result);
+                    loans.push(loan);
+                });
+                resolve(loans);
             });
         });
     }
@@ -22,8 +30,11 @@ module.exports = class LoanRepository {
                     console.log(err);
                     reject(null);
                 }
-
-                resolve(results[0]);
+                
+                let result = results[0];
+                let loan = new Loan();
+                loan = Object.assign(loan, results);
+                resolve(loan);
             });
         });
     }
@@ -37,6 +48,7 @@ module.exports = class LoanRepository {
                         console.log(err);
                         reject(null);
                     }
+                    
                     resolve(results);
                 });
         });

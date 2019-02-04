@@ -1,4 +1,5 @@
 var connection = require('../database/connection');
+var LoanPayment = require('../models/LoanPayment');
 
 module.exports = class LoanPaymentRepository {
     getLoanPayments() {
@@ -10,7 +11,15 @@ module.exports = class LoanPaymentRepository {
                     reject(null);
                 }
 
-                resolve(results);
+                // resolve(results);
+
+                let loan_payments = [];
+                results.forEach(result => {
+                    let loanpayment = new LoanPayment();
+                    loanpayment = Object.assign(loanpayment, result)
+                    loan_payments.push(loanpayment);
+                });
+                resolve(loan_payments);
             });
         });
     }
@@ -22,7 +31,10 @@ module.exports = class LoanPaymentRepository {
                     console.log(err);
                     reject(null);
                 }
-
+                
+                let result = results[0];
+                let loanpayment = new LoanPayment();
+                loanpayment = Object.assign(loanpayment, result);
                 resolve(results[0]);
             });
         });

@@ -1,4 +1,5 @@
-var connection = require('../database/connection.js');
+var connection = require('../database/connection');
+var UserLogin = require('../models/UserLogin');
 
 module.exports = class UserloginRepository {
     getUserLogins() {
@@ -11,9 +12,18 @@ module.exports = class UserloginRepository {
                 }
 
 
-                resolve(results);
-            })
-        })
+                // resolve(results);
+
+                let user_login = [];
+                results.forEach(result => {
+                    let user_login = new UserLogin();
+                    user_login = Object.assign(user_login, result);
+                    user_login.push(user_login);
+                    
+                });
+                resolve(user_login);
+            });
+        });
     }
     getUserLoginByCode(code) {
         return new Promise((resolve, reject) => {
@@ -23,7 +33,10 @@ module.exports = class UserloginRepository {
                     reject(null);
                 }
 
-                resolve(results[0]);
+               let result = results[0];
+               let user_login = new UserLogin();
+               user_login = Object.assign(user_login, result);
+               resolve(user_login);
             });
         });
     }
