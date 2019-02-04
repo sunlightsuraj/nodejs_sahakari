@@ -1,4 +1,5 @@
 var connection = require('../database/connection');
+var User_types= require('../models/User_types');
 
 module.exports = class User_TypesRepository {
     getUser_Types() {
@@ -10,7 +11,14 @@ module.exports = class User_TypesRepository {
                     reject(null);
                 }
 
-                resolve(results);
+                //resolve(results);
+                let user_types = [];
+                results.forEach(result => {
+                    let user_type = new User_types();
+                    user_type = Object.assign(user_type, result);
+                    user_types.push(user_type);
+                });
+                resolve(user_types);
             });
         });
     }
@@ -23,7 +31,10 @@ module.exports = class User_TypesRepository {
                     reject(null);
                 }
 
-                resolve(results[0]);
+                let result = results[0];
+                let user_types = new User_Types();
+                user_types = Object.assign(user_types, result);
+                resolve(user_types);
             });
         });
     }
@@ -31,7 +42,7 @@ module.exports = class User_TypesRepository {
     saveUser_Types(user_types) {
         return new Promise((resolve, reject) => {
             connection.query("insert into user_types set ?",
-                user_types,
+               user_types,
                 (err, results) => {
                     if (err) {
                         console.log(err);
