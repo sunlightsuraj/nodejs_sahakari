@@ -4,7 +4,7 @@ var UserLogin = require('../models/UserLogin');
 module.exports = class UserloginRepository {
     getUserLogins() {
         return new Promise((resolve, reject) => {
-            connection.query("select * from user_login", (err, results) => {
+            connection.query("select * from user_logins", (err, results) => {
                 console.log('results: ', results);
                 if (err) {
                     console.log(err);
@@ -27,7 +27,7 @@ module.exports = class UserloginRepository {
     }
     getUserLoginByCode(code) {
         return new Promise((resolve, reject) => {
-            connection.query("select * from user_login where code = ? and deleted_at is null", code, (err, results) => {
+            connection.query("select * from user_logins where code = ? and deleted_at is null", code, (err, results) => {
                 if (err) {
                     console.log(err);
                     reject(null);
@@ -42,7 +42,7 @@ module.exports = class UserloginRepository {
     }
     saveUserLogin(userlogin) {
         return new Promise((resolve, reject) => {
-            connection.query("insert into user_login set ?",
+            connection.query("insert into user_logins set ?",
                 userlogin,
                 (err, results) => {
                     if (err) {
@@ -55,7 +55,7 @@ module.exports = class UserloginRepository {
     };
     updateUserLoginByCode(userlogin, code) {
         return new Promise((resolve, reject) => {
-            connection.query("update user_login set ? where code = ?", [userlogin, code], (err, results) => {
+            connection.query("update user_logins set ? where code = ?", [userlogin, code], (err, results) => {
                 if (err) {
                     console.log(err);
                     reject(null);
@@ -67,7 +67,7 @@ module.exports = class UserloginRepository {
 
 deleteUserLogin(code) {
     return new Promise((resolve, reject) => {
-        connection.query("update user_login set deleted_at = current_timestamp where code = ?", code, (err, results) => {
+        connection.query("update user_logins set deleted_at = current_timestamp where code = ?", code, (err, results) => {
             if (err) {
                 console.log(err);
                 reject(null);

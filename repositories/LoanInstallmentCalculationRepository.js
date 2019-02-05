@@ -1,4 +1,5 @@
 var connection = require('../database/connection');
+var LoanInstallmentCalculation = require('../models/LoanInstallmentCalculation');
 
 module.exports = class LoanInstallmentCalculationRepository {
     getLoanInstallmentCalculations() {
@@ -11,7 +12,15 @@ module.exports = class LoanInstallmentCalculationRepository {
 
                 }
 
-                resolve (results);
+                // resolve (results);
+
+                let loan_installment_calculations = [];
+                results.forEach(result => {
+                    let loan_installment_calculation = new LoanInstallmentCalculation();
+                    loan_installment_calculation = Object.assign(loan_installment_calculation, result)
+                    loan_installment_calculations.push(loan_installment_calculation);
+                });
+                resolve(loan_installment_calculations);
             });            
         });
     }
@@ -24,6 +33,9 @@ module.exports = class LoanInstallmentCalculationRepository {
                     reject(null);
                 }
 
+                let result = results[0];
+                let loan_installment_calculation = new LoanInstallmentCalculation();
+                loan_installment_calculation = Object.assign(loan_installment_calculation, result);
                 resolve(results[0]);
             });
         });
